@@ -20,7 +20,7 @@ def insert_fast():
         return jsonify({"error": "No JSON body provided"}), 400
 
     fast_coll = coll.with_options(
-        write_concern=WriteConcern(1)
+        write_concern=WriteConcern(w=1)
     )
     result = fast_coll.insert_one(record)
     return jsonify({"inserted_id": str(result.inserted_id)}), 201
@@ -32,7 +32,7 @@ def insert_safe():
         return jsonify({"error": "No JSON body provided"}), 400
 
     safe_coll = coll.with_options(
-        write_concern=WriteConcern("majority")
+        write_concern=WriteConcern(w="majority")
     )
     result = safe_coll.insert_one(record)
     return jsonify({"inserted_id": str(result.inserted_id)}), 201
